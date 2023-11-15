@@ -2,5 +2,125 @@
 {% block title %}{{ user.user_name }}{% endblock %}
 
 {% block content %}
-<h1 style="text-align: center;">{{ user.user_name }}</h1><hr>
+<h1 style="text-align: center;">Anthony's Favorites</h1><hr>
+
+<div class="gallery" id="gallery">
+    <div class="gallery-item">
+        <div class="content"><img src="../static/media/1.jpg" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="../static/media/2.jpg" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="../static/media/3.jpg" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="../static/media/4.jpg" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="../static/media/5.jpg" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="../static/media/6.jpg" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="../static/media/7.jpg" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="../static/media/8.jpg" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="../static/media/9.jpg" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="../static/media/10.jpg" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="../static/media/11.jpg" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="../static/media/12.jpg" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="../static/media/13.jpg" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="../static/media/14.jpg" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="../static/media/15.jpg" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="../static/media/16.jpg" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="../static/media/17.jpg" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="../static/media/18.jpg" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="../static/media/19.jpg" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="../static/media/20.jpg" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="../static/media/21.jpg" alt=""></div>
+    </div>
+    </div>
+</div>
+
+<script>
+    var gallery = document.querySelector('#gallery');
+    var getVal = function (elem, style) { return parseInt(window.getComputedStyle(elem).getPropertyValue(style)); };
+    var getHeight = function (item) { return item.querySelector('.content').getBoundingClientRect().height; };
+    var resizeAll = function () {
+        var altura = getVal(gallery, 'grid-auto-rows');
+        var gap = getVal(gallery, 'grid-row-gap');
+        gallery.querySelectorAll('.gallery-item').forEach(function (item) {
+            var el = item;
+            el.style.gridRowEnd = "span " + Math.ceil((getHeight(item) + gap) / (altura + gap));
+        });
+    };
+    gallery.querySelectorAll('img').forEach(function (item) {
+        item.classList.add('byebye');
+        if (item.complete) {
+            console.log(item.src);
+        }
+        else {
+            item.addEventListener('load', function () {
+                var altura = getVal(gallery, 'grid-auto-rows');
+                var gap = getVal(gallery, 'grid-row-gap');
+                var gitem = item.parentElement.parentElement;
+                gitem.style.gridRowEnd = "span " + Math.ceil((getHeight(gitem) + gap) / (altura + gap));
+                item.classList.remove('byebye');
+            });
+        }
+    });
+    window.addEventListener('resize', resizeAll);
+    gallery.querySelectorAll('.gallery-item').forEach(function (item) {
+        
+    });
+    </script>
+
+    <!-- <img src="../static/media/1.jpg" alt="">
+    <img src="../static/media/2.jpg" alt="">
+    <img src="../static/media/3.jpg" alt="">
+    <img src="../static/media/4.jpg" alt="">
+    <img src="../static/media/5.jpg" alt="">
+    <img src="../static/media/7.jpg" alt="">
+    <img src="../static/media/8.jpg" alt="">
+    <img src="../static/media/9.jpg" alt="">
+    <img src="../static/media/10.jpg" alt="">
+    <img src="../static/media/11.jpg" alt="">
+    <img src="../static/media/12.jpg" alt="">
+    <img src="../static/media/13.jpg" alt="">
+    <img src="../static/media/14.jpg" alt="">
+    <img src="../static/media/15.jpg" alt="">
+    <img src="../static/media/16.jpg" alt="">
+    <img src="../static/media/17.jpg" alt="">
+    <img src="../static/media/18.jpg" alt="">
+    <img src="../static/media/19.jpg" alt="">
+    <img src="../static/media/20.jpg" alt=""> -->
 {% endblock %}

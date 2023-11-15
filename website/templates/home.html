@@ -3,11 +3,10 @@
 
 {% block content %}
 <br>
-<h1>Authentication Template</h1>
-<h3>Welcome, <a style="color: gold;">{{user.user_name}}</a>!</h3>
+<h1>Happy Birthday, <a style="color: gold;">{{user.user_name.capitalize()}}</a>!</h1>
 <details>
     <summary style="font-size: 20px;">Get Started</summary>
-    <p>This is a Flask template to create a database to store users and allow them to only view pages when they are logged in.</p>
+    <h3>I want to play a game.</h3>
 </details>
 {% endblock %}
 

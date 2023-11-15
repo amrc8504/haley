@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from .models import User
+from .models import User, Quiz
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
@@ -52,6 +52,7 @@ def sign_up():
             return redirect(url_for('views.home'))
 
     return render_template('sign_up.html', user=current_user)
+        
 
 @auth.route('/Logout')
 @login_required
@@ -69,5 +70,33 @@ def remove_account():
         flash('Account Deleted.', category='error')
         return redirect(url_for('auth.login'))
     else:
-        flash('Oncec your account is deleted, it cannot be undone.', category='error')
+        flash('Once your account is deleted, it cannot be undone.', category='error')
     return render_template('remove_acct.html', user=current_user)
+
+@auth.route('/Game', methods=['GET', 'POST'])
+@login_required
+def game():
+    if request.method == 'POST':
+        h1 = request.form.get('hint1')
+        h2 = request.form.get('hint2')
+        h3 = request.form.get('hint3')
+        h4 = request.form.get('hint4')
+        h5 = request.form.get('hint5')
+        h6 = request.form.get('hint6')
+        h7 = request.form.get('hint7')
+
+        # ------ Add answers to database ------
+        # data = Quiz(answer1=h1, answer2=h2, answer3=h3, answer4=h4, answer5=h5, answer6=h6, answer7=h7)
+        # db.session.add(data)
+        # db.session.commit()
+        # flash('Data added.', category='success')
+
+        # ------ Check database for inputed answers ------
+        # data = Quiz.query.filter_by(answer1=h1, answer2=h2, answer3=h3, answer4=h4, answer5=h5, answer6=h6, answer7=h7).first()
+        # if data:
+        #     flash("Success", category='success')
+        #     return redirect(url_for('views.home'))
+        # else:
+        #     flash('Incorrect.', category='error')
+            
+    return render_template('game.html', user=current_user)
