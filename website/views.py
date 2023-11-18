@@ -23,3 +23,13 @@ def account():
 @login_required
 def contact():
     return render_template('contact.html', user=current_user)
+
+@views.route('/Congratulations', methods=['GET', 'POST'])
+@login_required
+def flowers():
+    return render_template('flowers.html', user=current_user)
+
+@views.route('/From-Anthony', methods=['GET', 'POST'])
+@login_required
+def message():
+    return render_template('message.html', user=current_user)

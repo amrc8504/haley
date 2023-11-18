@@ -44,7 +44,7 @@ def sign_up():
         elif len(password1) < 7 or len(password1) > 15:
             flash('Password must be between 7 and 15 characters.', category='error')
         else:
-            new_user = User(email=email, user_name=user_name, password=generate_password_hash(password1, method='sha256'))
+            new_user = User(email=email, user_name=user_name.capitalize(), password=generate_password_hash(password1, method='sha256'))
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
@@ -92,11 +92,11 @@ def game():
         # flash('Data added.', category='success')
 
         # ------ Check database for inputed answers ------
-        # data = Quiz.query.filter_by(answer1=h1, answer2=h2, answer3=h3, answer4=h4, answer5=h5, answer6=h6, answer7=h7).first()
-        # if data:
-        #     flash("Success", category='success')
-        #     return redirect(url_for('views.home'))
-        # else:
-        #     flash('Incorrect.', category='error')
+        data = Quiz.query.filter_by(answer1=h1.lower(), answer2=h2.lower(), answer3=h3.lower(), answer4=h4.lower(), answer5=h5.lower(), answer6=h6.lower(), answer7=h7.lower()).first()
+        if data:
+            flash("Success", category='success')
+            return redirect(url_for('views.message'))
+        else:
+            flash('Incorrect. Please try again.', category='error')
             
     return render_template('game.html', user=current_user)
